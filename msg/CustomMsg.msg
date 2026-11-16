@@ -1,0 +1,3 @@
+string estado
+float32 densidad
+int32 identificador

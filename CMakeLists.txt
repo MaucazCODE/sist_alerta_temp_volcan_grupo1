@@ -8,6 +8,32 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(rosidl_default_generators REQUIRED)
+
+rosidl_generate_interfaces(${PROJECT_NAME}
+"msg/CustomMsg.msg"
+)
+
+add_executable(sensorat1 src/sensorat1.cpp)
+ament_target_dependencies(sensorat1 rclcpp std_msgs)
+
+add_executable(lectorsensor src/lectorsensor.cpp)
+ament_target_dependencies(lectorsensor rclcpp std_msgs)
+
+rosidl_get_typesupport_target(cpp_typesupport_target
+${PROJECT_NAME} rosidl_typesupport_cpp)
+
+
+target_link_libraries(sensorat1 "${cpp_typesupport_target}")
+target_link_libraries(lectorsensor "${cpp_typesupport_target}")
+
+install(TARGETS
+  sensorat1
+  lectorsensor
+DESTINATION lib/${PROJECT_NAME}
+)
+
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)

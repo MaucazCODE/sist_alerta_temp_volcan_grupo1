@@ -1,0 +1,12 @@
+# Goal: que se solicita al iniciar la mision
+bool clear_cache
+int32 target_sensor_id
+---
+# Result: que se devuelve al terminar o cancelar
+bool success
+string message
+float32 final_progress
+---
+# Feedback: retroalimentacion continua durante la ejecución
+float32 progress_percent
+string current_stage

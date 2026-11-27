@@ -1,0 +1,5 @@
+central_alert_node:
+  ros__parameters:
+    umbral_advertencia: 5.0
+    umbral_critico: 15.0
+    timeout_sensor_seg: 5.0

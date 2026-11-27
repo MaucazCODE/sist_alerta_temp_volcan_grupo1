@@ -1,0 +1,9 @@
+# Request: ID del sensor remoto a consultar
+int32 sensor_id
+---
+# Response: Estado operativo del nodo remoto
+bool operativo
+string estado_sensor
+string nivel_alerta
+float32 ultima_densidad
+string mensaje

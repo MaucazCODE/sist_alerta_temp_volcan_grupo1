@@ -14,6 +14,7 @@ find_package(rosidl_default_generators REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/CustomMsg.msg"
+  "srv/CheckSensorStatus.srv"
   "action/CleanSensorMemory.action"
   DEPENDENCIES action_msgs std_msgs
 )
@@ -38,12 +39,27 @@ add_executable(sensor_cleanup_client src/sensor_cleanup_client.cpp)
 ament_target_dependencies(sensor_cleanup_client rclcpp rclcpp_action std_msgs action_msgs)
 target_link_libraries(sensor_cleanup_client "${cpp_typesupport_target}")
 
+add_executable(central_alert_node src/central_alert_node.cpp)
+ament_target_dependencies(central_alert_node rclcpp std_msgs)
+target_link_libraries(central_alert_node "${cpp_typesupport_target}")
+
+add_executable(status_service_client src/status_service_client.cpp)
+ament_target_dependencies(status_service_client rclcpp std_msgs)
+target_link_libraries(status_service_client "${cpp_typesupport_target}")
+
 install(TARGETS
   sensorat1
   lectorsensor
   sensor_cleanup_server
   sensor_cleanup_client
+  central_alert_node
+  status_service_client
   DESTINATION lib/${PROJECT_NAME}
+)
+
+install(DIRECTORY
+  config
+  DESTINATION share/${PROJECT_NAME}
 )
 
 if(BUILD_TESTING)
